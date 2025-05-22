@@ -45,17 +45,7 @@ DynamoDB for NoSQL Data Warehousing: Opted for its managed service benefits, hig
 AWS SAM for Infrastructure as Code: Utilized to define the entire serverless application stack declaratively, enabling automated deployments and versioning of the infrastructure.
 
 ### Diagrams:
-Architectural diagrams for this project would typically include:
-
-System Context Diagram (C4 Model Level 1): Showing the data sources (simulated hardware), the AWS Cloud, and the analytics consumers.
-
-Container Diagram (C4 Model Level 2): Detailing Kinesis, Lambda, and DynamoDB as key components, along with the data flow between them.
-
-Sequence Diagram: Illustrating the step-by-step flow of data from generation through Kinesis, Lambda processing, and storage in DynamoDB.
-
-Deployment Diagram: Visualizing the deployment of these AWS services within the cloud environment.
-
-(You would place your actual diagram image files in the diagrams/ folder.)
+![Architecture Diagram](diagrams/architecture-diagram.png)
 
 ### Code Examples:
 Illustrative code snippets for simulating data generation, the Kinesis processing Lambda function, and the AWS SAM template for infrastructure provisioning are provided in their respective folders:
