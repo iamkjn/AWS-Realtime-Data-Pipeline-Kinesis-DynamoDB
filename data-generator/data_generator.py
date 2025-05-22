@@ -12,14 +12,14 @@ kinesis_client = boto3.client('kinesis')
 # --- Configuration ---
 # IMPORTANT: Replace with the actual name of your Kinesis stream after deployment.
 # This stream name will be created by the SAM template.
-KINESIS_STREAM_NAME = "telemax-network-data-stream" 
+KINESIS_STREAM_NAME = "network-data-stream" 
 RECORD_COUNT = 10 # Number of records to generate
 DELAY_SECONDS = 1 # Delay between sending each record
 
 def generate_network_data():
     """
     Generates a single simulated network link data record.
-    This function mimics the kind of real-time data TELEMAX's hardware might produce.
+    This function mimics the kind of real-time data and hardware might produce.
     """
     link_id = str(uuid.uuid4()) # Unique ID for each network link measurement
     speed_mbps = round(random.uniform(100, 1000), 2) # Simulated network speed
