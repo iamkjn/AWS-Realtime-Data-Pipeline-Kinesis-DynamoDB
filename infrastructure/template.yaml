@@ -5,10 +5,10 @@ Description: AWS SAM template for a Real-time Data Pipeline (Kinesis -> Lambda -
 Resources:
   # 1. Kinesis Data Stream
   # This resource defines the Kinesis stream that will ingest real-time network data.
-  TelemaxNetworkDataStream:
+  NetworkDataStream:
     Type: AWS::Kinesis::Stream
     Properties:
-      Name: telemax-network-data-stream # Name of the Kinesis stream.
+      Name: network-data-stream # Name of the Kinesis stream.
       ShardCount: 1 # Number of shards. Adjust based on expected throughput.
       Tags:
         - Key: Project
@@ -37,7 +37,7 @@ Resources:
         - AWSLambdaBasicExecutionRole
         # Grants read access to the Kinesis stream, allowing Lambda to consume records.
         - KinesisReadPolicy:
-            StreamName: !Ref TelemaxNetworkDataStream # Grants read access to this specific Kinesis stream.
+            StreamName: !Ref NetworkDataStream # Grants read access to this specific Kinesis stream.
         # Grants write access to the DynamoDB table, allowing Lambda to store processed data.
         - DynamoDBWritePolicy:
             TableName: !Ref NetworkTopologyDataTable # Grants write access to this specific DynamoDB table.
@@ -47,7 +47,7 @@ Resources:
         KinesisStreamEvent:
           Type: Kinesis # Defines a Kinesis stream as an event source.
           Properties:
-            Stream: !GetAtt TelemaxNetworkDataStream.Arn # ARN of the Kinesis stream to consume from.
+            Stream: !GetAtt NetworkDataStream.Arn # ARN of the Kinesis stream to consume from.
             BatchSize: 100 # Number of records to process in a single batch.
             StartingPosition: LATEST # Start reading from the latest records in the stream.
             # You can also use TRIM_HORIZON to read from the beginning of the stream.
@@ -57,7 +57,7 @@ Resources:
   NetworkTopologyDataTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: telemax-network-topology-data # Name of the DynamoDB table.
+      TableName: network-topology-data # Name of the DynamoDB table.
       BillingMode: PAY_PER_REQUEST # On-demand billing mode for cost efficiency.
       AttributeDefinitions:
         - AttributeName: LinkId # Defines the partition key.
@@ -79,12 +79,12 @@ Outputs:
   # Output the ARN of the Kinesis Stream.
   KinesisStreamArn:
     Description: "ARN of the Kinesis Data Stream"
-    Value: !GetAtt TelemaxNetworkDataStream.Arn
+    Value: !GetAtt NetworkDataStream.Arn
 
   # Output the Name of the Kinesis Stream.
   KinesisStreamName:
     Description: "Name of the Kinesis Data Stream"
-    Value: !Ref TelemaxNetworkDataStream
+    Value: !Ref NetworkDataStream
 
   # Output the Name of the DynamoDB Table.
   DynamoDBTableName:
